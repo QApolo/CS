@@ -1,0 +1,1 @@
+lambda_sum = lambda x: x + 
