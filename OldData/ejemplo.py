@@ -8,7 +8,3 @@ map(lambda x, y: x + y, [1, 3, 5], [2, 4, 6])
 
 l = map(lambda x, y: x + y, filter(lambda x: x % 2 != 0, [1, 3, 5]), filter(lambda x: x % 2 == 0,[2, 4, 6]))
 print(list(l))
-
-# Otra forma de hacerlo
-
-res = map(lambda x, y: x + y, lista[::2], lista[1::2])
