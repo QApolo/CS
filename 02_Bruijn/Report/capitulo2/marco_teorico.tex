@@ -1,0 +1,53 @@
+\chapter{Ecuaciones Simbólicas}
+
+		
+Para proceder al cálculo de la expresión regular es posible utilizar la recurrencia de la ecuación \ref{eq:recur}.
+\begin{equation}
+	\label{eq:recur}
+	R_{i,j}^k = R_{i,j}^{k-1}+ R^{k-1}_{i,k}(R_{k,k}^{k-1})^* R_{k,j}^{k-1}
+\end{equation}
+
+donde $i$ es el estado inicial y $j$ es el estado final. El caso base cuando $k=0$ es el camino directo a cada nodo.\\
+\newpage
+ \section{Regla 22}
+\begin{tabularx}{0.8\textwidth} { 
+		| >{\raggedright\arraybackslash}X 
+		| >{\centering\arraybackslash}X 
+		| >{\raggedleft\arraybackslash}X | }
+	
+	\hline
+	Ecuación  & Expresión \\
+	\hline
+	1  & $(0+1)^*$   \\
+	\hline
+	2 & $(01)^*$   \\
+	\hline
+	3  & $(001)^*$   \\
+	\hline
+	4  & $11(01)^*00$   \\
+	\hline
+	5 & $(01)^*(0+1)$   \\
+	\hline
+	6 & $(000 111)^*$   \\
+	\hline
+	7  & $(0+0(01)^*00)^*$   \\
+	\hline
+	8 & $(((01)^*+0)00^*1)^* $   \\
+	\hline
+	9  & $(0+1)+11(01)^*(0+1)$   \\
+	\hline
+	10  & $((01)^*00)(0+0(01)^*00)^*$   \\
+	\hline
+	11 & $(11(01)^*00)(0+0(01)^*00)^* $  \\
+	\hline
+	12 & $(0+0(01)^*00)^*0(01)^*(0+1) $ \\
+	\hline
+	13 & $(0+1(01)^*00)(0+0(01)^*00)^*$   \\
+	\hline
+	14 & $((0+1)+11(01)^*1)+(11(01)^*00)(0+0(01)^*00)^*(0(01)^*(0+1))$   \\
+	\hline
+	15  & $(0^*10^*)(10^*10+(10^*+10^*10)0^*)^*$   \\
+	\hline
+\end{tabularx}\\
+	Expresiones regulares derivadas de la regla 22 calculadas con la recurrencia \ref{eq:recur}\\
+	Tabla consultada de  \cite{tableRegExp}

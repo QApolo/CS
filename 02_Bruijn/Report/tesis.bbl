@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{mcintosh1}
+H.~V. McIntosh, ``{De Bruijn diagrams}.''
+  \url{http://delta.cs.cinvestav.mx/~mcintosh/oldweb/ra/node7.html}, 2005.
+\newblock mcintosh@servidor.unam.mx.
+
+\bibitem{regularLanguage}
+J.~C. S. T.~M. Genaro Juárez~Martínez, Harold V.~McIntosh and S.~V.~C.
+  Vergara, ``Determining a regular language by glider-based structures called
+  phases $f_i$\_1 in rule 110,'' {\em Journal of Cellular Automata}.
+
+\bibitem{tableRegExp}
+R.~H. D. D. I.~Z. Genaro Juárez~Martínez, Andrew~Adamatzky, ``On patterns and
+  dynamics of rule 22 cellular automaton,'' {\em Complex Systems}, 2019.
+
+\end{thebibliography}

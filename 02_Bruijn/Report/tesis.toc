@@ -1,0 +1,11 @@
+\babel@toc {spanish}{}
+\contentsline {chapter}{\numberline {1}Diagramas de Bruijn}{1}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Regla 15}{6}{section.1.1}% 
+\contentsline {section}{\numberline {1.2}Regla 22}{7}{section.1.2}% 
+\contentsline {section}{\numberline {1.3}Regla 30}{8}{section.1.3}% 
+\contentsline {section}{\numberline {1.4}Regla 54}{9}{section.1.4}% 
+\contentsline {section}{\numberline {1.5}Regla 90}{10}{section.1.5}% 
+\contentsline {section}{\numberline {1.6}Regla 110}{11}{section.1.6}% 
+\contentsline {chapter}{\numberline {2}Ecuaciones Simbólicas}{12}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Regla 22}{13}{section.2.1}% 
+\contentsline {chapter}{Bibliograf\'{\i }a}{14}{appendix*.9}% 
