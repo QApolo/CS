@@ -1,0 +1,62 @@
+body {
+    background: #5bc0de;
+    color:#FFF; 
+}
+
+.myButton {
+    color:#000;
+    border:2em solid #000;
+    background:#FFF;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor:pointer;
+    vertical-align:middle;
+    max-width: 100px;
+    /*padding: 5px;*/
+    text-align: center;
+    margin-top: 1em;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    outline-color: black;
+    background-color: #5bc0de;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color:darkcyan;
+}
+div:active[class = "myButton"] {
+    color:#000;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+
+.space {
+    margin: 1em;
+}
+
+label {
+    /* Other styling... */
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+}
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

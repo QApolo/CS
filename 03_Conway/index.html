@@ -2,75 +2,32 @@
 
     <meta charset="UTF-8">
     <title>Game of life</title>
+    <link rel ="stylesheet" href = "css/styles.css">
 </head>
+
 <script src="src/jscolor.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
 <body>
 
-
+    <p>Size: (100, 300, 1000)</p><input type = "text" value="100" id = "size_param">
+    <p>Probability:</p><input type = "text" value = "0.5" id = "probability_param">
+    <div class = "space"></div>
     Color: <input class="jscolor" value="000000" id = "colorChooser">
+    <div class = "space"></div>
+    <input type="file" name="file" id="file" class="inputfile" />
+    <label for="file">Choose a file</label>
 
-    <input type="file" id="myFile">
-    
+    <div id = "upload" class = "myButton" style="border:1px;"><p>Upload File</p></div>
 
-    <p>Click the "Try it" button to disable the file upload button.</p>
+    <div id = "start" class = "myButton" style="border:1px;"><p>Start</p></div>
 
-    <button onclick="myFunction()">Try it</button>
+    <div id = "save" class = "myButton" style="border:1px;"><p>Save File</p></div>
+    <canvas style = "border: 1px solid #000000"></canvas>
+    <canvas id="myChart" width="700px" height="500px"></canvas>
 
-    <script>
-    function myFunction() {
-    var x = document.getElementById("myFile");
-    x.disabled = true;
-    }
-    </script>
-
-
-
-    <div id = "start" class="top-left" style="border:1px;"><p>Start</p></div>
-    <canvas width="1000" height="1000" style = "border: 1px solid #000000"></canvas>
     <script src = "game.js"></script>
-
-
-    <canvas id="myChart" width="100" height="100"></canvas>
-    <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    </script>
+   
+    <!--<script src = "plot.js"></script>-->
 </body>
