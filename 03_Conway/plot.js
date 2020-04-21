@@ -3,10 +3,10 @@ var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [1, 2, 4, 8, 16, 32, 64],
+        labels: [1, 2, 3, 4, 5, 32, 64],
         datasets: [{
             label: '# of ones',
-            data: [1, 2, 4, 8, 16, 32, 64],
+            data: [1, 2, 100, 8, 16, 32, 64],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

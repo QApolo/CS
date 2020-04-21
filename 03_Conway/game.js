@@ -79,6 +79,7 @@ class Automaton {
         var waitTime = 50;
         if(this.size >= 500)
             waitTime = 0;
+        var counter = 0;
         var drawGrid = function(me) {
 
             var states = [];
@@ -102,6 +103,9 @@ class Automaton {
                     }
                 }
                 //myChart.options.data.push(count_ones);
+                counter++;
+                if(counter % 100 == 0)
+                    addData(myChart, counter, count_ones);
             }
             for(var i = 0; i < states.length; i++) {        
                 me.matrix[states[i][0]][states[i][1]] = states[i][2];
@@ -184,7 +188,6 @@ prob_param.oninput = function() {
         automaton = new Automaton(size, size, prob);
     }
 }
-
 
 size_param.oninput = function()
 {
@@ -326,3 +329,52 @@ saver.onclick = function(event) {
     var config = automaton.getConfiguration();
     download(config, "configuration.txt", "txt");
 };
+
+
+
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [],//[1, 2, 3, 4, 5, 32, 64]
+        datasets: [{
+            label: '# of ones',
+            data: [],//[1, 2, 100, 8, 16, 32, 64]
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        },
+        responsive: false
+    }
+});
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update(0);
+}
