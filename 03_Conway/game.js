@@ -58,13 +58,17 @@ class Automaton {
     countLivingNeighbours(y, x, mirrorNeigh = true) {
         var cont = 0;
         for(var i = 0; i < 8; i++) {
-            var auxY = (this.movs[i][0] + y);
-            var auxX = (this.movs[i][1] + x);
-
-            if(mirrorNeigh) {
-                 auxY = auxY % this.height;
-                 auxX = auxX % this.width;
-            }   
+            var auxY = (this.movs[i][0] +y);
+            var auxX = (this.movs[i][1] +x);
+            //console.log(size);
+            /*if (mirrorNeigh == true) {                
+                 auxY = mod(this.movs[i][0] + y, size);
+                 auxX = mod(this.movs[i][1] + x, size);
+                 console.log(auxY + " " + auxX);
+                 if(auxX < 0 || auxY < 0)
+                    console.log(auxY + " " + auxX);
+                 //console.log(auxY + " " + auxX);
+            }   */
             if( this.valid(auxY, auxX) ) {                              
                 if(this.matrix[auxY][auxX] == 1) {
                     cont++;
@@ -75,8 +79,9 @@ class Automaton {
 
     }
     routine(evt) {        
-        var me = this
+        var me = this;
         var waitTime = 50;
+
         if(this.size >= 500)
             waitTime = 0;
         var counter = 0;
@@ -86,18 +91,21 @@ class Automaton {
             var count_ones = 0;
             for(var i = 0; i < me.width; i++) {
                 count_ones = 0;
-                for(var j = 0; j < me.height; j++) {                
+                for(var j = 0; j < me.height; j++) {     
+                    let r_vals = document.getElementById("R_evol").value.split(",");
+
+                    //console.log(r_vals);
                     if(me.matrix[i][j] == 1)
                     {
                         count_ones++;
                         var count = me.countLivingNeighbours(i, j);
-                        if(!(count == 2 || count == 3)) {
+                        if(!(count >= parseInt(r_vals[0]) && count <= parseInt(r_vals[1]))) {
                             states.push([i, j, 0]);
                         }
                     }
                     else if(me.matrix[i][j] == 0) {
                         var count = me.countLivingNeighbours(i, j);
-                        if( count == 3 ) {
+                        if( count >= parseInt(r_vals[2]) && count <= parseInt(r_vals[3]) ) {
                             states.push([i, j, 1]);
                         }
                     }
@@ -116,7 +124,7 @@ class Automaton {
                 context.fillRect(cellSizeBordered * states[i][1], cellSizeBordered*states[i][0], cellSize, cellSize);
             }
             time--;
-            if(time >= 0 && document.getElementById("file").disabled == false) {
+            if(time >= 0) {
                 setTimeout(drawGrid, waitTime, me);
             }       
         };
@@ -139,7 +147,7 @@ class Automaton {
     getConfiguration() {
         var configuration = ""
         configuration += this.width+"\n";
-        configuration += "1" +" " +this.prob+"\n";
+        configuration += "0" +" " +this.prob+"\n";
         configuration += time+"\n";
         for(var i = 0; i < this.height; i++)
         {
@@ -151,6 +159,10 @@ class Automaton {
         }
         return configuration;
     }
+}
+
+function mod(n, m) {
+    return ((n % m) + m) % m;
 }
 
 function shuffle(a) {
@@ -271,7 +283,7 @@ fileInput.onchange = function(event) {
 
     if(is_prob) {
         prob = parseFloat(splitted[1].split(" ")[1]);
-        console.log(prob);
+        //console.log(prob);
         automaton = new Automaton(size, size, prob);
         return;
     }
@@ -303,7 +315,7 @@ fileInput.onchange = function(event) {
         window.navigator.msSaveOrOpenBlob(file, filename);
     else { // Others
         var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
+        url = URL.createObjectURL(file);
         a.href = url;
         a.download = filename;
         document.body.appendChild(a);
