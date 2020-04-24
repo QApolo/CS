@@ -1,0 +1,33 @@
+<head>
+
+    <meta charset="UTF-8">
+    <title>Game of life</title>
+    <link rel ="stylesheet" href = "css/styles.css">
+</head>
+
+<script src="src/jscolor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+<body>
+    <h1>Game Of Life</h1>
+    <p>Size: (100, 300, 1000)</p><input type = "text" value="100" id = "size_param">
+    <p>Probability:</p><input type = "text" value = "0.5" id = "probability_param">
+    <div class = "space"></div>
+    Color: <input class="jscolor" value="000000" id = "colorChooser">
+    <div class = "space"></div>
+    <input type="file" name="file" id="file" class="inputfile" />
+    <label for="file">Choose a file</label>
+
+    <div id = "upload" class = "myButton" style="border:1px;"><p>Upload File</p></div>
+
+    <div id = "start" class = "myButton" style="border:1px;"><p>Start</p></div>
+
+    <div id = "save" class = "myButton" style="border:1px;"><p>Save File</p></div>
+    <canvas style = "border: 1px solid #000000"></canvas>
+    <canvas id="myChart" width="700px" height="500px"></canvas>
+
+    <script src = "game.js"></script>
+   
+   <!-- <script src = "plot.js"></script>-->
+</body>
