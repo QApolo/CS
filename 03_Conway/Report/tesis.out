@@ -1,0 +1,20 @@
+\BOOKMARK [0][]{chapter.1}{1 John Horton Conway \(1937-2020\)}{}% 1
+\BOOKMARK [0][]{chapter.2}{2 Game of Life}{}% 2
+\BOOKMARK [1][]{section.2.1}{2.1 Patrones de Life}{chapter.2}% 3
+\BOOKMARK [2][]{subsection.2.1.1}{2.1.1 R-pentomino}{section.2.1}% 4
+\BOOKMARK [2][]{subsection.2.1.2}{2.1.2 Objetos Still Life}{section.2.1}% 5
+\BOOKMARK [2][]{subsection.2.1.3}{2.1.3 Oscillators}{section.2.1}% 6
+\BOOKMARK [2][]{subsection.2.1.4}{2.1.4 Gliders }{section.2.1}% 7
+\BOOKMARK [2][]{subsection.2.1.5}{2.1.5 The Queen Bee Shuttle}{section.2.1}% 8
+\BOOKMARK [0][]{chapter.3}{3 Implementaci\363n Game of Life}{}% 9
+\BOOKMARK [1][]{section.3.1}{3.1 Archivo de configuraci\363n}{chapter.3}% 10
+\BOOKMARK [2][]{subsection.3.1.1}{3.1.1 Con una nueva distribuci\363n de C\351lulas vivas}{section.3.1}% 11
+\BOOKMARK [2][]{subsection.3.1.2}{3.1.2 Conservando la matriz que representa a la cuadricula}{section.3.1}% 12
+\BOOKMARK [1][]{section.3.2}{3.2 Gr\341fica}{chapter.3}% 13
+\BOOKMARK [1][]{section.3.3}{3.3 Regla de evoluci\363n}{chapter.3}% 14
+\BOOKMARK [2][]{subsection.3.3.1}{3.3.1 R\(2,2,2,2\)}{section.3.3}% 15
+\BOOKMARK [2][]{subsection.3.3.2}{3.3.2 R\(3,3,3,3\)}{section.3.3}% 16
+\BOOKMARK [2][]{subsection.3.3.3}{3.3.3 R\(1,2,3,4\)}{section.3.3}% 17
+\BOOKMARK [2][]{subsection.3.3.4}{3.3.4 R\(2,4,6,8\)}{section.3.3}% 18
+\BOOKMARK [2][]{subsection.3.3.5}{3.3.5 R\(2,3,3,4\)}{section.3.3}% 19
+\BOOKMARK [0][]{appendix*.26}{Bibliograf\355a}{}% 20

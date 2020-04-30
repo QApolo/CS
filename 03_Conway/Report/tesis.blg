@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Arch Linux)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: tesis.aux
+A level-1 auxiliary file: capitulo1/introduccion.aux
+A level-1 auxiliary file: capitulo2/marco_teorico.aux
+The style file: ieeetr.bst
+Database file #1: bibliografia/referencias.bib
+You've used 3 entries,
+            1876 wiz_defined-function locations,
+            496 strings with 4043 characters,
+and the built_in function-call counts, 393 in all, are:
+= -- 32
+> -- 12
+< -- 0
++ -- 6
+- -- 3
+* -- 16
+:= -- 64
+add.period$ -- 3
+call.type$ -- 3
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 12
+empty$ -- 55
+format.name$ -- 3
+if$ -- 96
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 0
+newline$ -- 12
+num.names$ -- 3
+pop$ -- 17
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 14
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 3
+width$ -- 4
+write$ -- 25
