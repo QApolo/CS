@@ -1,0 +1,59 @@
+\chapter{Introducción}
+Los coronavirus son una extensa familia de virus que pueden causar enfermedades tanto en animales como en humanos. En los humanos, se sabe que varios coronavirus causan enfermedades respiratorias que pueden ir desde el resfriado común hasta enfermedades más graves como el síndrome respiratorio de oriente medio (MERS) y el síndrome respiratorio agudo severo (SRAS). El coronavirus que se ha descubierto  más recientemente causa la enfermedad COVID-19.
+\section{COVID-19}
+La COVID-19 es una enfermedad infecciosa causada por el coronavirus que se ha descubierto más recientemente. Tanto este nuevo virus como la enfermedad que provoca eran desconocidos antes de que estallara el brote de Wuhan (China) en diciembre de 2019.
+Actualmente la COVID-19 es una pandemia que afecta a muchos países de todo el mundo.
+\\
+Una persona puede contraer COVID-19 por contacto con otra persona que esté infectada por el virus. La enfermedad se propaga principalmente de persona a persona a través de las gotículas que salen despedidas de la nariz o la boca de una persona infectada al toser, estornudar o hablar. Estas gotículas son relativamente pesadas, no llegan muy lejos y caen rápidamente al suelo. Una persona puede contraer la COVID‑19 si inhala las gotículas procedentes de una persona infectada por el virus. Por eso es importante mantenerse al menos a un metro de distancia de los demás. Estas gotículas pueden caer sobre los objetos y superficies que rodean a la persona, como mesas, pomos y barandillas, de modo que otras personas pueden infectarse si tocan esos objetos o superficies y luego se tocan los ojos, la nariz o la boca. \cite{whoint}\\\\
+Entender el comportamiento de la pandemia permite a las entidades de salud mundiales y a los gobiernos a tomar decisiones que permitan reducir resultados no deseables como el colapso de hospitales o la muerte masiva simultánea de seres humanos, para ello se han desarrollado diversos modelos tales como simuladores de la propagación del virus y para el desarrollo de este proyecto se propone un autómata celular basado en teoría de grafos utilizando un modelo SIR que se explica en la siguiente sección. 
+\chapter{Marco teórico}
+\section{Autómatas celulares en Grafos}
+Un grafo $G$ es un par $(V, E)$ donde $V=\{v1, v2, v3,...,vn\}$ es un conjunto ordenado no vacío de elementos llamados nodos (o vértices) y $E$ es una familia finita de pares de elementos de $V$ llamadas aristas. Dos nodos del grafo, $v_{i}, v_{j} \in V$ se denominan adyacentes (o vecinos) si existe una arista en $E$  de la forma $(v_{i}, v_{j})$. Se consideran grafos no dirigidos i.\,e. $(v_{i}, v_{j}) = (v_{j}, v_{i}) \in E$. Un grafo $G$ es llamado simple si no hay dos aristas de $G$ con el mismo final y no tiene ciclos i.\,e. las aristas que inician y terminan en el mismo nodo. \cite{graphmit}\\\\
+Si $V = \{v_{1},...,v_{n}\}$, la matriz de adyacencia de G es la matriz de $nxn$, $A = (a_{ij})$, donde:
+\begin{equation}
+	a_{ij} = 
+	\begin{cases}
+	1 &\quad \text{si} (v_{i}, v_{j} ) \in E\\
+	0 &\quad \text{si} (v_{i}, v_{j} ) \notin E
+	\end{cases}
+\end{equation}
+
+Para este proyecto se utilizaron grafos no dirigidos por lo que la matriz de adyacencia es simétrica.
+La vecindad de un nodo $v \in V$, $N_{v}$ es el conjunto de todos los nodos de $G$ que son adyacentes a $v$, es decir, $N_{v} = {u \in V \text{ tal que } (v,u) \in E}$. El grado de un nodo $v$, $d_{v}$, es el número de sus vecinos.
+Un autómata celular en un grafo no dirigido $G=(V,E)$ es una 4-tupla $A = (V, S, N, f)$. El conjunto $V$ define el espacio de células de el CA tal que cada nodo representa una célula del autómata celular. $S$ es el conjunto finito de estados que pueden ser asumidos por los nodos en cada paso de tiempo. El estado del nodo $V$ en un paso de tiempo $t$ está denotado por $s_{v}^t \in S$ y cambia de acuerdo a la función de transición local $f$. $N$ es la función de vecindad la cuál asigna a cada nodo su vecindad, es decir:
+
+\begin{equation}
+N: V \longrightarrow 2^V 
+\end{equation}
+\begin{equation}
+	v_{i}\mapsto N (v_{i}) = N_{vi} = \{v_{i_1},v_{i_2},...,v_{i_{d_{v}}}\}
+\end{equation}
+\newpage
+Finalmente la función de transición local $f$ calcula el estado de cada nodo en un tiempo particular $t+1$ de los estados de sus vecinos en el paso de tiempo previo $t$, es decir:
+
+\begin{equation}
+	s_{v}^{t+1} = f(s_{v_{i_1} }^t, s_{v_{i_2} }^t,...,s_{v_{d_v} }^t)      
+\end{equation}
+donde $N_{v}= \{v_{i_1},v_{i_2},...,v_{i_n}\}$.
+
+\section{El modelo matemático SIR}
+En el modelo matemático epidemiológico SIR la población se divide en tres clases: Los susceptibles a la enfermedad, los infectados y los que se han recuperado y son inmunes a la enfermedad \cite{batista}. Más aún, la población se localiza en centros de ciudad que representan los nodos del grafo $G$. Si hay un tipo de conexión de transporte entre dos de estas ciudades, los nodos asociados se conectan mediante una arista. Se asume lo siguiente:
+
+\begin{enumerate}
+	\item La población de cada nodo permanece constante en el tiempo, es decir, sin nacimientos ni muertes se toman en cuenta. Más aún, la distribución de la población es no homogénea, donde $P_u$ es el número de  individuos de el nodo $u \in V$ y $P = \text{max}\{P_{u}, u \in V\}$.
+	\item La transmisión de la enfermedad es a través de contacto directo físico.
+	\item La población es capaz de moverse de su nodo a otro y regresar al nodo origen en cada paso del tiempo.
+\end{enumerate}           
+
+En un grafo de autómata celular, el estado del nodo $u \in V$  en el tiempo $t$es la tripleta $s_{u}^t = (S_{u}^t, I_{u}^t, R_{u}^t) \in Q \times Q \times Q  $ donde $S_{u}^t \in [0, 1]$ que representa la fracción de individuos susceptibles del nodo $u$ en el tiempo $t$, $I_{u}^t \in [0, 1]$ que representa la fracción de individuos infectados del nodo $u$ en el tiempo $t$  y $R_{u}^t \in [0, 1]$ que representa la fracción de individuos recuperados del nodo $u$ en el tiempo $t$ \cite{cagraph}.
+Consecuentemente, la función de transición del CA tiene la siguiente forma:
+
+\begin{equation}
+W_{u v} = 
+\end{equation}
+
+Capacidad de transportación
+\begin{equation}
+	W_{u v} = \frac{ h_{u v} }  {\text{max} \{h_{xy} \forall x, y \in V \} } \in [0,1]
+\end{equation}
+

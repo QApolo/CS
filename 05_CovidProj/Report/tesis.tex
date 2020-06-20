@@ -1,0 +1,180 @@
+%es-ES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         FORMATO DE TESIS                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% based on Harish Bhanderi's PhD/MPhil template, then Uni Cambridge
+% http://www-h.eng.cam.ac.uk/help/tpl/textprocessing/ThesisStyle/
+% corrected and extended in 2007 by Jakob Suckale, then MPI-iCBG PhD programme
+% and made available through OpenWetWare.org - the free biology wiki
+% forked from https://github.com/Tepexic/Tesis-UNAM on July 2017
+% modifications made by Arturo Lopez Pineda
+
+
+%                     Under GNU License v3
+
+% ADAPTADO PARA UMSNH:  @arturolp
+
+% Adaptado para ESCOM-IPN: @EliothMonroy
+
+\documentclass[oneside,12pt]{Latex/Classes/thesisUMSNH}
+%         PUEDEN INCLUIR EN ESTE ESPACIO LOS PAQUETES EXTRA, O BIEN, EN EL ARCHIVO "PhDthesisPSnPDF.cls" EN "./Latex/Classes/"
+%\usepackage{blindtext}                        % Para insertar texto dummy, de ejemplo, pues.
+%\usepackage{minted}
+\usepackage[square, sort, numbers]{natbib}  % Personalizar la bibliografia a gusto de cada quien
+% Note:
+%\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} %Centra tanto vertical como horizontalmente
+\newcolumntype{J}[1]{>{\arraybackslash}m{#1}} % Justifica el contenido dentro de una tabla y centra verticalmente
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tabu} %space between tables
+%Para Times new roman
+\usepackage{tabularx}
+\usepackage{mathptmx}
+
+\usepackage{listingsutf8}
+\usepackage[spanish]{babel}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{
+	style=mystyle
+}
+
+% The \blindtext or \Blindtext commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing thesis content.
+\include{Latex/Macros/MacroFile1}           % Archivo con funciones útiles
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   DATOS                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Dinámica espacial de la evolución del COVID-19 en México}
+\author{Juan Carlos García Medina} 
+\facultad{Escuela Superior de Cómputo}                 % Nombre de la facultad/escuela
+% \escudofacultad{Latex/Classes/Escudos/fmed_grande} % Aquí ponen la ruta y nombre del escudo de su facultad.
+
+\degree{Ingeniería en Sistemas Computacionales}       % Carrera
+\director{Dr. Genaro Juárez Martínez}     % Directores de tesis
+\tutor{Sistemas Complejos}
+\degreedate{\today}            % Año de la fecha de la presentación
+%\lugar{Ciudad de México}                        % Lugar
+
+%\portadafalse                              % Portada en NEGRO, descomentar y comentar la línea siguiente si se quiere utilizar
+\portadatrue                                % Portada en COLOR
+
+%% Opciones del posgrado (descomentar si las necesitan)
+	%\posgradotrue                                                    
+	%\programa{programa de maestría y doctorado en ingeniería}
+	%\campo{Ingeniería Eléctrica - Control}
+	%% En caso de que haya comité tutor
+	%\comitetrue
+	%\ctutoruno{Dr. Emmet L. Brown}
+	%\ctutordos{Dr. El Doctor}
+%% Datos del jurado                             
+	%\presidente{Dr. 1}
+	%\secretario{Dr. 2}
+	%\vocal{Dr. 3}
+	%\supuno{Dr. 4}
+	%\supdos{Dr. 5}
+	%\institucion{el Instituto de Ingeniería, UNAM}
+
+%\keywords{trabajo terminal}            % Palablas clave para los metadatos del PDF
+%\subject{tema_1,tema_2}                     % Tema para metadatos del PDF  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   PORTADA                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle	% Se redefinió este comando en el archivo de la clase para generar automáticamente la portada a partir de los datos
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  PRÓLOGO                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+ %\include{Resumen/Resumen}                   % Usada como hoja de presentación
+ %\include{Agradecimientos/Dedicatoria}       % Usada como carta responsiva
+ %\include{Declaracion/Declaracion}           % Advertencia
+ %\include{Agradecimientos/Agradecimientos}   % Los agradecimientos
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   ÍNDICES                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Esta sección genera el índice
+\setcounter{secnumdepth}{3} % organisational level that receives a numbers
+\setcounter{tocdepth}{3}    % print table of contents for level 3
+\tableofcontents            % Genera el índice 
+%: ----------------------- list of figures/tables ------------------------
+%\listoffigures              % Genera el ínidce de figuras, comentar línea si no se usa
+%\listoftables               % Genera índice de tablas, comentar línea si no se usa
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   CONTENIDO                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% the main text starts here with the introduction, 1st chapter,...
+\mainmatter
+\def\baselinestretch{1.5}                   % Interlineado de 1.5
+\include{capitulo1/introduccion}
+\include{capitulo2/marco_teorico}
+%\include{capitulo3/analisis_sistema}
+%\include{capitulo4/diseno_sistema}
+%\include{capitulo5/desarrollo}
+%\include{capitulo6/pruebas}
+%\include{capitulo7/conclusiones}
+%\include{extras/trabajo_futuro}
+%\include{extras/glosario_terminos}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   APÉNDICES                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+%\include{Apendice1/Apendice1}               % Colocar los circuitos, manuales, código fuente, pruebas de teoremas, etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   REFERENCIAS                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% existen varios estilos de bilbiografía, pueden cambiarlos a placer
+\bibliographystyle{ieeetr} % otros estilos pueden ser abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+
+%El formato trae otros estilos, o pueden agregar uno que les guste:
+%\bibliographystyle{Latex/Classes/PhDbiblio-case} % title forced lower case
+%\bibliographystyle{Latex/Classes/PhDbiblio-bold} % title as in bibtex but bold
+%\bibliographystyle{Latex/Classes/PhDbiblio-url} % bold + www link if provided
+%\bibliographystyle{Latex/Classes/jmb} % calls style file jmb.bst
+
+\bibliography{bibliografia/referencias}             % Archivo .bib
+
+\end{document}
