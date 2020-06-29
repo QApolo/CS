@@ -49,11 +49,47 @@ En un grafo de autómata celular, el estado del nodo $u \in V$  en el tiempo $t$
 Consecuentemente, la función de transición del CA tiene la siguiente forma:
 
 \begin{equation}
-W_{u v} = 
+	s_{u}^t=f(s_{v_1}^{t-1},...,s_{v_{d_u}}^{t-1} ) = (S_{u}^t, I_{u}^t, R_{u}^t)
 \end{equation}
 
-Capacidad de transportación
+El terreno donde se propaga la epidemia se modela como un grafo ponderado donde cada nodo representa una ciudad o un pueblo y el arco entre dos nodos representa la conexión entre las ciudades correspondientes. En este sentido, el factor de conexión entre los nodos $u$ y $v$ es el peso asociado a la arista $(u, v) \in E$ y es denotado por $W_{u v}$. Depende de la capacidad de transporte.
 \begin{equation}
 	W_{u v} = \frac{ h_{u v} }  {\text{max} \{h_{xy} \forall x, y \in V \} } \in [0,1]
 \end{equation}
+donde $h_{u v}$es la cantidad total de población que se mueve de $u$ a $v$ durante un paso de tiempo.
+\newpage
+
+Los individuos infectadis de $u$ en el paso de tiempo $t$ está dado por la suma de los siguientes términos:
+
+\begin{itemize}
+	\item Los individuos infectados en el paso de tiempo previo que no se han recuperado.
+	
+	\item Los individuos susceptibles que se han infectado durante este paso de tiempo. En este caso se debe tomar en cuenta la tasa de recuperación $r \in [0, 1]$. Estos nuevos individuos enfermos de $u$ pueden ser infectados por los individuos infectados de $u$ o por los individuos infectados de los nodos vecinos de $u$ que se movieron a $u$ durante ese paso de tiempo. En el primer caso, solo la tasa de transmisión $\rho \in [0, 1]$ está involucrada, mientras que en el segundo caso se deben considerar los factores de conexión entre los nodos y la población y el factor de movimiento de cada nodo. Además también se consideran los individuos susceptibles de $u$ movidos a un nodo vecino durante el paso de tiempo e infectados en el nodo vecino por sus correspondientes individuos infectados; En este caso $\eta_{u} \in [0, 1]$ produciendo la porción de individuos susceptibles movidos de $u$ a sus nodos vecinos. Notar que $\sum_{v \in V_{u}}^{} \eta_{u v} = \eta_{u}$.
+\end{itemize}	
+	Como consecuencia la ecuación de campo medio (mean-field) para individuos infectados es la siguiente:
+	
+	\begin{equation}
+		\begin{split}
+			f_{I}(s_{v_1}^{t-1},...,s_{v_{\gamma_u} }^{t-1}) = (1 - r) I_{u}^{t-1} + \rho (1 - \eta_{u}) S_{u}^{t-1} I_{u}^{t-1} \\ 
+			+ \rho (1 - \eta_{u}) S_{u}^{t-1} \sum_{v \in V_{u}}^{} \frac{P_{v}} { P } W_{v u}  I_{v} ^ {t-1} \\
+			+ \rho S_{u}^{t-1} \sum_{v \in V_{u}}^{} (1 - w_{v u}  ) \eta_{u v } I_{v}^{t-1}
+		\end{split}
+	\end{equation}
+	
+	Por otro lado, los individuos susceptibles de cada nodo están dados por la diferencia de los individuos susceptibles del nodo el el paso de tiempo previo y los individuos susceptibles que se han infectado como se menciona arriba. Como consecuencia, se tiene la siguiente ecuación:
+	
+	\begin{equation}
+	\begin{split}
+	f_{S}(s_{v_1}^{t-1},...,s_{v_{\gamma_u} }^{t-1}) =  S_{u}^{t-1} - \rho (1 - \eta_{u}) S_{u}^{t-1} I_{u}^{t-1} \\ 
+- \rho (1 - \eta_{u}) S_{u}^{t-1} \sum_{v \in V_{u}}^{} \frac{P_{v}} { P } W_{v u}  I_{v} ^ {t-1} \\
+	- \rho S_{u}^{t-1} \sum_{v \in V_{u}}^{} (1 - w_{v u}  ) \eta_{u v } I_{v}^{t-1}
+	\end{split}
+	\end{equation}
+	
+
+Finalmente, los individuos recuperados de un nodo en un paso de tiempo particular están dados por los individuos recuperados en el paso de tiempo previo más los individuos infectados que se han recuperado durante el paso de tiempo. Es decir:
+
+
+
+
 

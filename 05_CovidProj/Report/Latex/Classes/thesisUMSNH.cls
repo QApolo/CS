@@ -351,7 +351,7 @@
 	TESIS\\
 	QUE PARA OPTAR POR EL GRADO DE:\\
 	{\Large \scshape {\@degree}}\\[20mm]
-	AUTOR:\\
+	AUTORES:\\
 	{\Large \scshape {\@author}}\\[18mm]
 	TUTOR PRINCIPAL\\
 	{\Large \scshape {\@director}}\\
@@ -456,7 +456,7 @@
 	    
 
 
-	    Autor:\\[5pt]
+	    Autores:\\[5pt]
 	    \textbf{{\@author}}
 
 	    \vspace{1.2cm}
