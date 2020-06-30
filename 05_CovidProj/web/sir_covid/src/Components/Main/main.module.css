@@ -1,0 +1,90 @@
+.displayContainer, .editing, .graph {
+  width: 85vw;
+  margin: 0 auto;
+}
+
+.graph {
+  overflow: scroll;
+  padding-bottom: 2rem;
+  border-radius: 1.5vmax;
+}
+
+.displayContainer {
+  overflow: scroll;
+  max-height: 80vh;
+  border-radius: 1.5vmax;
+}
+
+.editing {
+  animation-timing-function: ease;
+  transition: max-height 200ms, padding 200ms;
+  -webkit-transition: max-height 200ms, padding 200ms;
+  max-height: 0;
+  padding-bottom: 0rem;
+
+  display: grid;
+  justify-content: center;
+  grid: auto-flow dense / 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 0.6rem;
+  grid-row-gap: 1rem;
+  align-items: center;
+
+  text-align: initial;
+  font-size: 0.9rem;
+  overflow: hidden;
+}
+
+.editing input,
+.editing button {
+  min-width: 4rem;
+  font-size: 1.1rem;
+  border: 0 solid;
+  color: white;
+  border-radius: 0.6vmax;
+}
+
+.editing input {
+  padding: 0.25rem 0.6rem;
+  background-color: rgba(255, 255, 255, 0.13);
+  text-align: start;
+}
+
+.editing button {
+  padding: 0.8rem 0;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.editing button,
+.editing input[type="file"] {
+  grid-column: span 2;
+}
+
+.editing input[type="file"] {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .editing {
+    grid-auto-columns: 1fr;
+    grid-auto-flow: row;
+    grid-auto-flow: column;
+    grid: auto-flow dense / 1fr 1fr;
+  }
+
+  .visual {
+    max-height: 28rem !important;
+  }
+
+  .editing {
+    transition: max-height 400ms, padding 400ms;
+    -webkit-transition: max-height 400ms, padding 400ms;
+  }
+}
+
+.visual {
+  max-height: 10rem;
+  padding-bottom: 2rem;
+}
