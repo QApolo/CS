@@ -28,7 +28,13 @@ class model {
     this.neighbors = [];
     this.nodes_id = Array.from(new Set(edges.map(({ u, v }) => [u, v]).flat()));
 
+    edges.forEach(({ u, v }) => {
+      this.neighbors[u] = [];
+      this.neighbors[v] = [];
+    });
+
     edges.forEach(({ u, v, population_moving }) => {
+      if (this.neighbors[u] == null) this.neighbors[u] = [];
       this.neighbors[u].push([v, population_moving]);
       this.neighbors[v].push([u, population_moving]);
     });
@@ -37,9 +43,7 @@ class model {
 
     this.population_of = population_of;
     this.population_max = Math.max(...Object.values(population_of));
-    this.h_max = Math.max(
-      ...Object.values(edges.map((edge) => edge.population_moving))
-    );
+    this.h_max = Math.max(...Object.values(edges.map(edge => edge.population_moving)));
   }
 
   fI(u: number) {
@@ -48,14 +52,8 @@ class model {
       s2 = 0.0;
 
     this.neighbors[u].forEach(([node, population_moving]) => {
-      s1 +=
-        (this.population_of[node] / this.population_max) *
-        (population_moving / this.h_max) *
-        this.state_of[node].infected;
-      s2 +=
-        (1.0 - population_moving / this.h_max) *
-        this.n_u *
-        this.state_of[node].infected; //replace n_u with n_uv
+      s1 += (this.population_of[node] / this.population_max) * (population_moving / this.h_max) * this.state_of[node].infected;
+      s2 += (1.0 - population_moving / this.h_max) * this.n_u * this.state_of[node].infected; //replace n_u with n_uv
     });
 
     return (
@@ -72,14 +70,8 @@ class model {
       s2 = 0.0;
 
     this.neighbors[u].forEach(([node, population_moving]) => {
-      s1 +=
-        (this.population_of[node] / this.population_max) *
-        (population_moving / this.h_max) *
-        this.state_of[node].infected;
-      s2 +=
-        (1.0 - population_moving / this.h_max) *
-        this.n_u *
-        this.state_of[node].infected; //replace n_u with n_uv
+      s1 += (this.population_of[node] / this.population_max) * (population_moving / this.h_max) * this.state_of[node].infected;
+      s2 += (1.0 - population_moving / this.h_max) * this.n_u * this.state_of[node].infected; //replace n_u with n_uv
     });
 
     return (
@@ -97,7 +89,7 @@ class model {
 
   step() {
     const new_state: { [key: number]: state } = {};
-    this.nodes_id.forEach((node) => {
+    this.nodes_id.forEach(node => {
       new_state[node] = {
         susceptible: this.fS(node),
         infected: this.fI(node),
