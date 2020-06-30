@@ -27,9 +27,7 @@ class State {
             this->I = I;
             this->R = R;
         }
-        State() {
-
-        }
+        State() { }
 };
 
 class CellularAutomata {
@@ -51,6 +49,7 @@ class CellularAutomata {
             for(auto s: states) {
                 S[s.first] = s.second;
             }
+            P_max = 0;
         }
         CellularAutomata(){}
          void setPopulation(map <int, int> P) {
@@ -63,11 +62,11 @@ class CellularAutomata {
             vector <pair<int, int>> neighbours = adjList[u]; 
             State s = S[u];
 
-            double s1 = 0.0, s2 = 0.0, s3 = 0.0;
+            double s1 = 0.0, s2 = 0.0;
 
             for(auto v: neighbours) {                
                 s1 += (P[v.first] / P_max) * (v.second / h_max) * S[v.first].I;
-                s2 += (1.0 - (v.second / h_max)) * n_u * S[v.first].I; //substitue n_u with n_uv
+                s2 += (1.0 - (v.second / h_max)) * n_u * S[v.first].I; //replace n_u with n_uv
             }  
 
             double next_infe = (1.0 - r) * s.I + p * (1.0 - n_u) * s.S * s.I;
@@ -83,21 +82,23 @@ class CellularAutomata {
 
             for(auto v: neighbours) {                
                 s1 += (P[v.first] / P_max) * (v.second / h_max) * S[v.first].I;
-                s2 += (1.0 - (v.second / h_max)) * n_u * S[v.first].I; //substitue n_u with n_uv
+                s2 += (1.0 - (v.second / h_max)) * n_u * S[v.first].I; //replace n_u with n_uv
             }   
 
             double next_susc = s.S - p * (1.0 - n_u) * s.S * s.I - p * (1.0 - n_u) * s.S * s1;
             next_susc -= p * s.S * s2;
 
             return next_susc;
-        }   
+        }  
+        double fR(int u) {
+            return S[u].R + r * S[u].I;
+        }
 
-        void routine(int time)
-        {
+        void routine(int time) {
             for(int t = 0; t < time; ++t) {
                 map <int, State> S2;
                 for(auto v: V) {
-                    State Sv(fS(v) ,fI(v), S[v].R + r * S[v].I);
+                    State Sv(fS(v) ,fI(v), fR(v)); //fR equiv S[v].R + r * S[v].I
                     S2[v] = Sv;
                 }
                 S = S2;
