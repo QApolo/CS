@@ -1,5 +1,5 @@
 type edge = { u: number; v: number; population_moving: number };
-type state = { susceptible: number; infected: number; recovered: number };
+export type state = { susceptible: number; infected: number; recovered: number };
 
 class model {
   recovery_rate: number; //recover rate
@@ -100,5 +100,8 @@ class model {
     this.state_of = new_state;
   }
 }
+
+
+
 
 export default model;
