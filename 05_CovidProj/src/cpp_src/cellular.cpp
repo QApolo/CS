@@ -96,7 +96,7 @@ class CellularAutomata {
 
         void routine(int time) {
             for(int t = 0; t < time; ++t) {
-                map <int, State> S2;
+                map <int, State> S2;    
                 for(auto v: V) {
                     State Sv(fS(v) ,fI(v), fR(v)); //fR equiv S[v].R + r * S[v].I
                     S2[v] = Sv;
