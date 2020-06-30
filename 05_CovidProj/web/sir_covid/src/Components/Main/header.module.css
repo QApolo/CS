@@ -1,0 +1,18 @@
+.header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  user-select: none;
+  width: 85vw;
+  margin: 0 auto;
+  text-align: initial;
+}
+
+.header img {
+  height: calc(0.6rem + 1.4vmax);
+  margin: 0 0.6rem;
+  cursor: pointer;
+  transition: opacity 0.6s;
+  -webkit-transition: opacity 0.6s;
+}

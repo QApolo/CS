@@ -109,11 +109,4 @@ class model {
   }
 }
 
-
-
-const m = new model();
-m.step()
-
-console.log(m.state_of);
-
 export default model;
