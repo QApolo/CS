@@ -5,6 +5,78 @@ import mainStyle from "./main.module.css";
 import headerStyle from "./header.module.css";
 import { edit, pause, report } from "../../assets/icons";
 
+// @ts-ignore
+import { GoogleCharts } from "google-charts";
+
+GoogleCharts.load(() => {
+  const states = [
+    ["State", "Casos"],
+    ["Baja California", 50000],
+    ["Sonora", 50000],
+    ["Chihuahua", 50000],
+    ["Coahuila", 50000],
+    ["Nuevo León", 50000],
+    ["Tamaulipas", 50000],
+    ["Sinaloa", 50000],
+    ["Nayarit", 50000],
+    ["Durango", 0],
+    ["Zacatecas", 400],
+    ["Jalisco", 30000],
+    ["Colima", 30000],
+    ["Tlaxcala", 30000],
+    ["Aguascalientes", 30000],
+    ["Zacatecas", 30000],
+    ["San Luis Potosí", 30000],
+    ["Puebla", 400],
+    ["Guanajuato", 400],
+    ["Querétaro", 400],
+    ["Hidalgo", 400],
+    ["Morelos", 400],
+    ["Estado de México", 400],
+    ["Distrito Federal", 400],
+    ["Michoacán", 0],
+    ["Baja California Sur", 200],
+    ["Guerrero", 500],
+    ["Oaxaca", 10000],
+    ["Veracruz", 10000],
+    ["Tabasco", 10000],
+    ["Campeche", 500],
+    ["Chiapas", 200],
+    ["Quintana Roo", 500],
+    ["Yucatán", 500],
+  ];
+
+  class StatesDictionary {
+    dict: any;
+    constructor() {
+      this.dict = {};
+      for (var i = 1; i < states.length; i++) {
+        this.dict[states[i][0]] = i - 1;
+      }
+    }
+    indexState(name: any) {
+      return this.dict[name];
+    }
+  }
+  const statesDict = new StatesDictionary();
+  let data = GoogleCharts.api.visualization.arrayToDataTable(states);
+  let options = {
+    region: "MX", // Mexico
+    resolution: "provinces",
+    colorAxis: {
+      minValue: 0,
+      maxValue: 170000,
+      colors: ["white", "red"],
+    },
+    backgroundColor: "#81d4fa",
+    datalessRegionColor: "#eeeeee",
+    defaultColor: "#f5f5f5",
+  };
+
+  let chart = new GoogleCharts.api.visualization.GeoChart(document.getElementById("geochart-colors"));
+  chart.draw(data, options);
+});
+
 const MainScreen = () => {
   const widthInput = useRef<HTMLInputElement>(null);
   const heightInput = useRef<HTMLInputElement>(null);
@@ -33,26 +105,21 @@ const MainScreen = () => {
       </header>
 
       <section className={`${mainStyle.editing} ${isEditing ? mainStyle.visual : ""}`}>
-        <label htmlFor="width">Width: </label>
+        <label htmlFor="width">Recovery rate: </label>
         <input type="number" defaultValue={20} id="width" step="20" min="20" max="1000" ref={widthInput} onChange={forceReset} />
 
-        <label htmlFor="height">Height: </label>
+        <label htmlFor="height">Transmission rate: </label>
         <input type="number" defaultValue={30} id="height" step="20" min="20" max="1000" ref={heightInput} onChange={forceReset} />
 
-        <label htmlFor="density">Density: </label>
+        <label htmlFor="density">n_u: </label>
         <input type="number" defaultValue={40} id="density" step="0.1" min="0" max="1" ref={densityInput} onChange={forceReset} />
-
-        <label htmlFor="survival">R(S_min, S_max): </label>
-        <input defaultValue={"2, 3"} id="survival" ref={survival} onChange={forceReset} />
-
-        <label htmlFor="birth">R(B_min, B_max): </label>
-        <input defaultValue={"3, 3"} id="birth" ref={birth} onChange={forceReset} />
 
         <button>{reset ? "Simulate new automata" : "Continue"}</button>
       </section>
 
       <section className={mainStyle.displayContainer} onClick={() => setPause(true)}>
         <canvas />
+        <div id="geochart-colors" style={{ width: 1000, height: 500 }}></div>
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
