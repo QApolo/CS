@@ -110,8 +110,11 @@ class model {
 }
 
 
+var edges = new Array<edge>();
+var states = new Array<[number, state]>();
+var population = new Map(); 
 
-const m = new model();
+const m = new model(0.6, 0.5, 0.25, edges, states, population);
 m.step()
 
 console.log(m.state_of);
