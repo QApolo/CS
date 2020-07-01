@@ -20,18 +20,18 @@ const MainScreen = () => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
+    if (isPaused) return;
     const id = setInterval(() => {
       model.step();
       setTime(t => t + 1);
-      console.log("counting");
     }, 1000);
-    return clearInterval(id);
+    return () => clearInterval(id);
   }, [isPaused, model]);
 
   return (
     <>
       <header className={headerStyle.header}>
-        <h2>SIR: COVID-19</h2>
+        <h2>SIR: COVID-19 [t={time}]</h2>
         <img alt="pause" src={pause} onClick={togglePause} style={{ opacity: isPaused ? 0.7 : 1 }} />
         <img alt="edit" src={edit} onClick={toggleEdit} style={{ opacity: isEditing ? 1 : 0.7 }} />
         <img alt="report" src={report} onClick={toggleMeasure} style={{ opacity: measuring ? 1 : 0.7 }} />
