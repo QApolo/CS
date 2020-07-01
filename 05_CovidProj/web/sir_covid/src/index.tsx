@@ -23,6 +23,7 @@ for(let i = 0; i < 6; i++) {
 }
 
 let states: Array<[number, state]> = [[0,{susceptible:0.8, infected:0.2, recovered:0}]];
+
 for(let i = 1; i < 6; i++) {
   states.push([i, {susceptible:1, infected: 0, recovered: 0}]);
 }
@@ -33,8 +34,18 @@ for(let i = 0; i < 6; i++) {
 }
 
 const m = new model(0.6, 0.5, 0.25, edges, states, population);
-for(let t = 0; t < 10; t++) {
-  m.step();
+
+let infected = [];
+let susceptible = [];
+let recovered = [];
+for(let t = 0; t < 15; t++) {
+  console.log(m.state_of[0]);
+  infected.push(m.state_of[0].infected);
+  susceptible.push(m.state_of[0].susceptible);
+  recovered.push(m.state_of[0].recovered);
+  m.step(); 
 }
 
-console.log(m.state_of);
+console.log(susceptible);
+console.log(infected);
+console.log(recovered);

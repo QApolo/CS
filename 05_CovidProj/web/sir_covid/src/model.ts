@@ -53,7 +53,7 @@ class model {
 
     this.neighbors[u].forEach(([node, population_moving]) => {
       s1 += (this.population_of[node] / this.population_max) * (population_moving / this.h_max) * this.state_of[node].infected;
-      s2 += (1.0 - population_moving / this.h_max) * this.n_u * this.state_of[node].infected; //replace n_u with n_uv
+      s2 += (1.0 - population_moving / this.h_max) * (this.n_u / this.neighbors[u].length) * this.state_of[node].infected; //replace n_u with n_uv
     });
 
     return (
@@ -71,7 +71,7 @@ class model {
 
     this.neighbors[u].forEach(([node, population_moving]) => {
       s1 += (this.population_of[node] / this.population_max) * (population_moving / this.h_max) * this.state_of[node].infected;
-      s2 += (1.0 - population_moving / this.h_max) * this.n_u * this.state_of[node].infected; //replace n_u with n_uv
+      s2 += (1.0 - population_moving / this.h_max) * (this.n_u / this.neighbors[u].length) * this.state_of[node].infected; //replace n_u with n_uv
     });
 
     return (
@@ -100,8 +100,5 @@ class model {
     this.state_of = new_state;
   }
 }
-
-
-
 
 export default model;
