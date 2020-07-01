@@ -56,7 +56,7 @@ class model {
       s2 += (1.0 - population_moving / this.h_max) * (this.n_u / this.neighbors[u].length) * this.state_of[node].infected; //replace n_u with n_uv
     });
 
-    return (
+    return this.discretization(
       (1.0 - this.recovery_rate) * infected +
       this.transmission_rate * (1.0 - this.n_u) * susceptible * infected +
       this.transmission_rate * (1.0 - this.n_u) * susceptible * s1 +
@@ -74,7 +74,7 @@ class model {
       s2 += (1.0 - population_moving / this.h_max) * (this.n_u / this.neighbors[u].length) * this.state_of[node].infected; //replace n_u with n_uv
     });
 
-    return (
+    return this.discretization(
       susceptible -
       this.transmission_rate * (1.0 - this.n_u) * susceptible * infected -
       this.transmission_rate * (1.0 - this.n_u) * susceptible * s1 -
@@ -84,7 +84,7 @@ class model {
 
   fR(u: number) {
     const { infected, recovered } = this.state_of[u];
-    return recovered + this.recovery_rate * infected;
+    return this.discretization(recovered + this.recovery_rate * infected);
   }
 
   step() {
@@ -98,6 +98,9 @@ class model {
     });
 
     this.state_of = new_state;
+  }
+  discretization(x: number) {
+    return Math.round(100.0 * x) / 100.0;
   }
 }
 

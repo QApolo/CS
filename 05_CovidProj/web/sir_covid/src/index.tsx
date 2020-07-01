@@ -15,8 +15,8 @@ ReactDOM.render(
 
 // ================== testing ===================
 let edges = [];
-for(let i = 0; i < 6; i++) {
-  for(let j = i + 1; j < 6; j++) {
+for(let i = 0; i < 32; i++) {
+  for(let j = i + 1; j < 32; j++) {
     console.log(i+ " "+ j);
     edges.push({u:i, v:j, population_moving:1});
   }
@@ -24,12 +24,12 @@ for(let i = 0; i < 6; i++) {
 
 let states: Array<[number, state]> = [[0,{susceptible:0.8, infected:0.2, recovered:0}]];
 
-for(let i = 1; i < 6; i++) {
+for(let i = 1; i < 32; i++) {
   states.push([i, {susceptible:1, infected: 0, recovered: 0}]);
 }
 
 let population: { [key: number]: number } = {}; 
-for(let i = 0; i < 6; i++) {
+for(let i = 0; i < 32; i++) {
   population[i] = 100;
 }
 
