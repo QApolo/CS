@@ -1,27 +1,19 @@
-import model, {state} from "./model"
+import model, { state } from "./model";
+import data, { stateCode } from "./data";
 
 const createModel = () => {
-  let edges = [];
-  for (let i = 0; i < 6; i++) {
-    for (let j = i + 1; j < 6; j++) {
-      //console.log(i + " " + j);
-      edges.push({ u: i, v: j, population_moving: 1 });
-    }
-  }
+  const codes = Object.keys(data.data);
+  const codeOf = (code: stateCode) => codes.indexOf(code);
 
-  let states: Array<[number, state]> = [[0, { susceptible: 0.9, infected: 0.1, recovered: 0 }]];
+  const edges = data.edges.map(x => ({ u: codeOf(x[0]), v: codeOf(x[1]), population_moving: x[2] }));
+  const states = Object.entries(data.data).map(
+    ([key, { susceptible, infected, recovered }]) => [codeOf(key as stateCode), { susceptible, infected, recovered }] as [number, state]
+  );
 
-  for (let i = 1; i < 6; i++) {
-    states.push([i, { susceptible: 1, infected: 0, recovered: 0 }]);
-  }
+  const population: { [key: number]: number } = {};
+  codes.forEach(code => (population[codeOf(code as stateCode)] = data.data[code as stateCode].population));
 
-  let population: { [key: number]: number } = {};
-  for (let i = 0; i < 6; i++) {
-    population[i] = 100;
-  }
-
-  const m = new model(0.6, 0.3, 0.25, edges, states, population);
-  return m;
+  return new model(0.1, 0.3, 0.4, edges, states, population);
 };
 
 export default createModel;

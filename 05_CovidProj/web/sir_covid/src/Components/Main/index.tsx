@@ -10,18 +10,23 @@ import mainStyle from "./main.module.css";
 import headerStyle from "./header.module.css";
 import { edit, pause, report } from "../../assets/icons";
 
+import data from "../../data";
+
 const MainScreen = () => {
   const widthInput = useRef<HTMLInputElement>(null);
   const heightInput = useRef<HTMLInputElement>(null);
   const densityInput = useRef<HTMLInputElement>(null);
 
   const [isEditing, toggleEdit] = useToggle(false);
-  const [isPaused, togglePause] = useToggle(false);
+  const [isPaused, togglePause] = useToggle(true);
   const [measuring, toggleMeasure] = useToggle(false);
 
   const [model] = useState(() => createModel());
   const [time, setTime] = useState(0);
-  const each = 1500;
+  const each = 800;
+
+const colData = Object.values(data.data).map(({ longname, population }) => [longname, population] as [string, number]);
+const maxValue = Math.max(...colData.map(x => x[1]));
 
   useEffect(() => {
     if (isPaused) return;

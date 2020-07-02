@@ -8,9 +8,9 @@ const Graph: React.FC<{ each: number; measuring: boolean; model: model; classNam
     let id: NodeJS.Timeout;
     // @ts-ignore
     import("plotly.js-basic-dist").then(Plotly => {
-      const infected = { y: [], mode: "histogram", name: "infected", line: { color: "#8ac6d1", width: 2 } };
-      const recovered = { y: [], mode: "histogram", name: "recovered", line: { color: "#efa8e4", width: 2 } };
-      const susceptible = { y: [], mode: "histogram", name: "susceptible", line: { color: "#ffd868", width: 2 } };
+      const infected = { y: [], mode: "histogram", name: "infected", line: { color: "#10375c", width: 2 } };
+      const recovered = { y: [], mode: "histogram", name: "recovered", line: { color: "#ff9234", width: 2 } };
+      const susceptible = { y: [], mode: "histogram", name: "susceptible", line: { color: "#12947f", width: 2 } };
 
       const layout = { plot_bgcolor: "#eedad1", paper_bgcolor: "#eeeeee" };
       Plotly.newPlot("graph", [infected, recovered, susceptible], layout);
