@@ -1,6 +1,8 @@
 type edge = { u: number; v: number; population_moving: number };
 export type state = { susceptible: number; infected: number; recovered: number };
 
+const getSum = (data: Array<number>) => data.reduce((a, b) => a + b, 0);
+
 class model {
   recovery_rate: number; //recover rate
   transmission_rate: number; //rate transmission
@@ -98,6 +100,15 @@ class model {
     });
 
     this.state_of = new_state;
+  }
+
+  getNow(): state {
+    const dataWithKeys = Object.entries(this.state_of).map(([name, state]) => [parseInt(name), state] as [number, state]);
+    return {
+      susceptible: getSum(dataWithKeys.map(([name, state]) => state.susceptible * this.population_of[name])),
+      infected: getSum(dataWithKeys.map(([name, state]) => state.infected * this.population_of[name])),
+      recovered: getSum(dataWithKeys.map(([name, state]) => state.recovered * this.population_of[name])),
+    };
   }
 }
 
