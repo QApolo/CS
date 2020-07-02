@@ -10,8 +10,6 @@ import mainStyle from "./main.module.css";
 import headerStyle from "./header.module.css";
 import { edit, pause, report } from "../../assets/icons";
 
-import data from "../../data";
-
 const MainScreen = () => {
   const widthInput = useRef<HTMLInputElement>(null);
   const heightInput = useRef<HTMLInputElement>(null);
@@ -24,9 +22,6 @@ const MainScreen = () => {
   const [model] = useState(() => createModel());
   const [time, setTime] = useState(0);
   const each = 800;
-
-const colData = Object.values(data.data).map(({ longname, population }) => [longname, population] as [string, number]);
-const maxValue = Math.max(...colData.map(x => x[1]));
 
   useEffect(() => {
     if (isPaused) return;
@@ -63,7 +58,7 @@ const maxValue = Math.max(...colData.map(x => x[1]));
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
-        <Graph each={each} className={mainStyle.graph} measuring={measuring} model={model} />
+        <Graph each={each} running={!isPaused} className={mainStyle.graph} measuring={measuring} model={model} />
       </section>
     </>
   );
