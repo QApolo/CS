@@ -30,7 +30,7 @@ const Graph: React.FC<props> = ({ measuring, each, model, className, running }) 
 
   return (
     <>
-      <hr style={{ width: "80%", borderWidth: "1rem" }} />
+      <hr style={{ width: "80%", borderWidth: "0.3rem" }} />
       <h2>Graphs</h2>
       <div className={className} ref={graphRef} />
     </>

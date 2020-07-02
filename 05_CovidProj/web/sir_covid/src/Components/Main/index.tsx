@@ -21,7 +21,7 @@ const MainScreen = () => {
 
   const [model] = useState(() => createModel());
   const [time, setTime] = useState(0);
-  const each = 800;
+  const each = 400;
 
   useEffect(() => {
     if (isPaused) return;
@@ -54,7 +54,7 @@ const MainScreen = () => {
       </section>
 
       <section className={mainStyle.displayContainer}>
-        <Map model={model} time={time} />
+        <Map time={time} each={each} model={model} />
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
