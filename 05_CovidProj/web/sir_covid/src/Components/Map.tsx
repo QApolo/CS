@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import model from "../model";
+import model, { state } from "../model";
 import data from "../data";
 
 // @ts-ignore
@@ -20,6 +20,7 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
   const chartRef = useRef<HTMLDivElement>(null);
   const [data, updateData] = useState<any>(null);
   const [chartGoogle, updatechartGoogle] = useState<any>(null);
+  const [code, setCode] = useState<number | null>(null);
 
   useEffect(() => {
     GoogleCharts.load(() => {
@@ -34,8 +35,12 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
       const chart = new visualization.GeoChart(chartRef.current);
 
       visualization.events.addListener(chart, "select", () => {
-        chart.getSelection();
-        console.log(chart.getSelection());
+        const point = chart.getSelection();
+        if (point.length === 0) return;
+        const code = point[0].row;
+        setCode(code);
+        console.log(model.state_of[code]);
+        console.log(model.population_of[code]);
       });
 
       chart.draw(googleData, options);
@@ -51,7 +56,31 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
     chartGoogle.draw(data, options);
   }
 
-  return <div ref={chartRef} />;
+  return (
+    <>
+      {code && (
+        <div>
+          <h3>{colData[code][0]}</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <span>susceptible:</span>
+            <span>{model.state_of[code].susceptible * model.population_of[code]}</span>
+            <span>({model.state_of[code].susceptible})</span>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <span>infected:</span>
+            <span>{model.state_of[code].infected * model.population_of[code]}</span>
+            <span>({model.state_of[code].infected})</span>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <span>recovered:</span>
+            <span>{model.state_of[code].recovered * model.population_of[code]}</span>
+            <span>({model.state_of[code].recovered})</span>
+          </div>
+        </div>
+      )}
+      <div ref={chartRef} />
+    </>
+  );
 };
 
 export default Map;
