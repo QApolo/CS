@@ -1,38 +1,37 @@
 states = [
-  ['State', 'Casos'],
-  ['Baja California', 50000],
-  ['Sonora', 50000],
-  ['Chihuahua', 50000],
-  ['Coahuila', 50000],
-  ['Nuevo León', 50000],
-  ['Tamaulipas', 50000],
-  ['Sinaloa', 50000],
-  ['Nayarit', 50000],
+  ['Estado', 'Casos'],
+  ['Aguascalientes', 0],
+  ['Baja California', 0],
+  ['Baja California Sur', 0],
+  ['Chihuahua', 0],
+  ['Colima', 0],
+  ['Campeche', 0],
+  ['Coahuila', 0],
+  ['Chiapas', 0],
+  ['Distrito Federal', 0],
   ['Durango', 0],
-  ['Zacatecas', 400],
-  ['Jalisco', 30000],
-  ['Colima', 30000],
-  ['Tlaxcala', 30000],
-  ['Aguascalientes', 30000],
-  ['Zacatecas', 30000],
-  ['San Luis Potosí', 30000],
-  ['Puebla', 400],
-  ['Guanajuato', 400],
-  ['Querétaro', 400],
-  ['Hidalgo', 400],
-  ['Morelos', 400],
-  ['Estado de México', 400],
-  ['Distrito Federal', 400],
+  ['Estado de México', 0],
+  ['Guerrero', 0],
+  ['Guanajuato', 0],
+  ['Hidalgo', 0],
+  ['Jalisco', 0],
   ['Michoacán', 0],
-  ['Baja California Sur', 200],
-  ['Guerrero', 500],
-  ['Oaxaca', 10000],
-  ['Veracruz', 10000],
-  ['Tabasco', 10000],
-  ['Campeche', 500],
-  ['Chiapas', 200],
-  ['Quintana Roo', 500],
-  ['Yucatán', 500]
+  ['Morelos', 0],
+  ['Nayarit', 0],
+  ['Nuevo León', 0],
+  ['Oaxaca', 0],
+  ['Puebla', 0],
+  ['Quintana Roo', 0],
+  ['Querétaro', 0],
+  ['Sinaloa', 0],
+  ['San Luis Potosí', 0],
+  ['Sonora', 0],
+  ['Tabasco', 0],
+  ['Tlaxcala', 0],
+  ['Tamaulipas', 0],
+  ['Veracruz', 0],
+  ['Yucatán', 0],
+  ['Zacatecas', 0]
 ];
 
 class StatesDictionary {
@@ -83,7 +82,7 @@ function updateState(name, value) {
 
 function periodic() {
   //indexMich = statesDict.indexState('Michoacán');//indexMich = 23;
-  for(var index = 1; index < 31; index++) {
+  for(var index = 0; index < 32; index++) {
     data.setValue(index, 1, (data.getValue(index,1)+1000)% 170000);
   }
     //console.log(key, value);
@@ -93,4 +92,4 @@ function periodic() {
   //chart.draw(data, options);
   
 }
-setInterval(periodic, 500);
+setInterval(periodic, 1000);
