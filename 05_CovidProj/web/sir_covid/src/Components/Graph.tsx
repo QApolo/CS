@@ -9,11 +9,14 @@ const recovered = { y: [], mode: "histogram", name: "recovered", line: { color: 
 const susceptible = { y: [], mode: "histogram", name: "susceptible", line: { color: "#12947f", width: 2 } };
 const layout = { plot_bgcolor: "#eedad1", paper_bgcolor: "#eeeeee" };
 
-type props = { each: number; measuring: boolean; model: model; className: string; running: boolean };
-const Graph: React.FC<props> = ({ measuring, each, model, className, running }) => {
+type props = { each: number; measuring: boolean; model: model; className: string; running: boolean, time: number };
+const Graph: React.FC<props> = ({ measuring, each, model, className, running, time }) => {
   const graphRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!measuring) return;
+    infected.y = []
+    recovered.y = []
+    susceptible.y = []
     Plotly.newPlot(graphRef.current, [infected, recovered, susceptible], layout);
   }, [model, measuring]);
 

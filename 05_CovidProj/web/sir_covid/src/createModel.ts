@@ -1,7 +1,7 @@
 import model, { state } from "./model";
 import data, { stateCode } from "./data";
 
-const createModel = () => {
+const createModel = (recovery_rate: number, transmission_rate: number, n_u: number) => {
   const codes = Object.keys(data.data);
   const codeOf = (code: stateCode) => codes.indexOf(code);
 
@@ -13,7 +13,7 @@ const createModel = () => {
   const population: { [key: number]: number } = {};
   codes.forEach(code => (population[codeOf(code as stateCode)] = data.data[code as stateCode].population));
 
-  return new model(0.1, 0.3, 0.4, edges, states, population);
+  return new model(recovery_rate, transmission_rate, n_u, edges, states, population);
 };
 
 export default createModel;

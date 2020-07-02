@@ -11,15 +11,15 @@ import headerStyle from "./header.module.css";
 import { edit, pause, report } from "../../assets/icons";
 
 const MainScreen = () => {
-  const widthInput = useRef<HTMLInputElement>(null);
-  const heightInput = useRef<HTMLInputElement>(null);
-  const densityInput = useRef<HTMLInputElement>(null);
+  const recovery = useRef<HTMLInputElement>(null);
+  const transmission = useRef<HTMLInputElement>(null);
+  const nu = useRef<HTMLInputElement>(null);
 
   const [isEditing, toggleEdit] = useToggle(false);
   const [isPaused, togglePause] = useToggle(true);
   const [measuring, toggleMeasure] = useToggle(false);
 
-  const [model] = useState(() => createModel());
+  const [model, setModel] = useState(() => createModel(0.1, 0.3, 0.4));
   const [time, setTime] = useState(0);
   const each = 400;
 
@@ -43,14 +43,28 @@ const MainScreen = () => {
 
       <section className={`${mainStyle.editing} ${isEditing ? mainStyle.visual : ""}`}>
         <label htmlFor="width">Recovery rate: </label>
-        <input type="number" defaultValue={20} id="width" step="20" min="20" max="1000" ref={widthInput} />
+        <input type="number" defaultValue={0.1} id="width" step="0.05" min="20" max="1" ref={recovery} />
 
-        <label htmlFor="height">Transmission rate: </label>
-        <input type="number" defaultValue={30} id="height" step="20" min="20" max="1000" ref={heightInput} />
+        <label htmlFor="transmission">Transmission rate: </label>
+        <input type="number" defaultValue={0.3} id="height" step="0.05" min="20" max="1" ref={transmission} />
 
-        <label htmlFor="density">n_u: </label>
-        <input type="number" defaultValue={40} id="density" step="0.1" min="0" max="1" ref={densityInput} />
-        <button>Go!</button>
+        <label htmlFor="nu">n_u: </label>
+        <input type="number" defaultValue={0.4} id="density" step="0.05" min="0" max="1" ref={nu} />
+        <button
+          onClick={() => {
+            const a = parseFloat(recovery.current!.value);
+            const b = parseFloat(transmission.current!.value);
+            const c = parseFloat(nu.current!.value);
+
+            console.log({a, b, c})
+
+            setModel(createModel(a, b, c));
+            setTime(0)
+            togglePause()
+          }}
+        >
+          Go!
+        </button>
       </section>
 
       <section className={mainStyle.displayContainer}>
@@ -58,7 +72,7 @@ const MainScreen = () => {
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
-        <Graph each={each} running={!isPaused} className={mainStyle.graph} measuring={measuring} model={model} />
+        <Graph each={each} running={!isPaused} time={time} className={mainStyle.graph} measuring={measuring} model={model} />
       </section>
     </>
   );
