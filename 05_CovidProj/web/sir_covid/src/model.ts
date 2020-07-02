@@ -95,8 +95,8 @@ class model {
       new_state[node] = {
         susceptible: this.fS(node),
         infected: this.fI(node),
-        recovered: this.fR(node),
-      }; //fR equiv S[v].R + r * S[v].I
+        recovered: 1.0 - this.fS(node) - this.fI(node),
+      };
     });
 
     this.state_of = new_state;
