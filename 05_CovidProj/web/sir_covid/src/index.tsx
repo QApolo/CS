@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import model, {state} from "./model"
 import "./index.css";
 import App from "./Components/App";
 
@@ -14,6 +13,7 @@ ReactDOM.render(
 
 
 // ================== testing ===================
+/** 
 let edges = [];
 for(let i = 0; i < 32; i++) {
   for(let j = i + 1; j < 32; j++) {
@@ -49,3 +49,5 @@ for(let t = 0; t < 15; t++) {
 console.log(susceptible);
 console.log(infected);
 console.log(recovered);
+
+*/

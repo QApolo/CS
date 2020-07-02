@@ -12,7 +12,7 @@
 .displayContainer {
   overflow: scroll;
   max-height: 80vh;
-  border-radius: 1.5vmax;
+  border-radius: 1vmax;
 }
 
 .editing {
