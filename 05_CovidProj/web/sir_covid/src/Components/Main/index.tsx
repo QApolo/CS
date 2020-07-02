@@ -1,7 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useToggle } from "../../Hooks/useToggle";
-import Map from "../Map";
+
 import createModel from "../../createModel";
+
+import Map from "../Map";
+import Graph from "../Graph";
 
 import mainStyle from "./main.module.css";
 import headerStyle from "./header.module.css";
@@ -18,13 +21,14 @@ const MainScreen = () => {
 
   const [model] = useState(() => createModel());
   const [time, setTime] = useState(0);
+  const each = 1500;
 
   useEffect(() => {
     if (isPaused) return;
     const id = setInterval(() => {
       model.step();
       setTime(t => t + 1);
-    }, 1000);
+    }, each);
     return () => clearInterval(id);
   }, [isPaused, model]);
 
@@ -54,9 +58,7 @@ const MainScreen = () => {
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
-        <hr style={{ width: "80%", borderWidth: "0.1rem" }} />
-        <h2>Graphs</h2>
-        <div className={mainStyle.graph} id="graph" />
+        <Graph each={each} className={mainStyle.graph} measuring={measuring} model={model} />
       </section>
     </>
   );
