@@ -82,7 +82,7 @@ function updateState(name, value) {
 
 function periodic() {
   //indexMich = statesDict.indexState('Michoacán');//indexMich = 23;
-  for(var index = 1; index < 31; index++) {
+  for(var index = 0; index < 32; index++) {
     data.setValue(index, 1, (data.getValue(index,1)+1000)% 170000);
   }
     //console.log(key, value);
