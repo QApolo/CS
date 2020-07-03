@@ -21,6 +21,7 @@ const MainScreen = () => {
 
   const [model, setModel] = useState(() => createModel(0.1, 0.3, 0.4));
   const [time, setTime] = useState(0);
+  const [stateID, setStateID] = useState<number | null>(null);
   const each = 500;
 
   useEffect(() => {
@@ -69,11 +70,11 @@ const MainScreen = () => {
       </section>
 
       <section className={mainStyle.displayContainer}>
-        <Map time={time} each={each} model={model} />
+        <Map stateID={stateID} model={model} setStateID={setStateID} />
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
-        <Graph each={each} running={!isPaused} time={time} className={mainStyle.graph} measuring={measuring} model={model}>
+        <Graph stateID={stateID} each={each} running={!isPaused} time={time} className={mainStyle.graph} measuring={measuring} model={model}>
           {paused}
         </Graph>
       </section>

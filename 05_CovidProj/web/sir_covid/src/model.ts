@@ -15,6 +15,7 @@ class model {
   population_of: { [key: number]: number } = {};
   neighbors: Array<Array<[number, number]>>;
   infected_yesterday = 0;
+  stats_for: { [key: number]: { susceptible: Array<number>; infected: Array<number>; recovered: Array<number> } } = {};
 
   constructor(
     recovery_rate: number,
@@ -47,6 +48,17 @@ class model {
     this.population_of = population_of;
     this.population_max = Math.max(...Object.values(population_of));
     this.h_max = Math.max(...Object.values(edges.map(edge => edge.population_moving)));
+
+    this.nodes_id.forEach(node_id => {
+      this.stats_for[node_id] = {
+        susceptible: [this.state_of[node_id].susceptible * this.population_of[node_id]],
+        infected: [this.state_of[node_id].infected * this.population_of[node_id]],
+        recovered: [this.state_of[node_id].recovered * this.population_of[node_id]],
+      }
+    });
+
+    const point = this.getNow(null);
+    this.stats_for[32] = { susceptible: [point.susceptible], infected: [point.infected], recovered: [point.recovered] };
   }
 
   fI(u: number) {
@@ -93,7 +105,7 @@ class model {
   step() {
     const dataWithKeys = Object.entries(this.state_of).map(([name, state]) => [parseInt(name), state] as [number, state]);
     this.infected_yesterday = getSum(dataWithKeys.map(([name, state]) => state.infected * this.population_of[name]));
-    
+
     const new_state: { [key: number]: state } = {};
     this.nodes_id.forEach(node => {
       new_state[node] = {
@@ -103,17 +115,31 @@ class model {
       };
     });
 
+    this.nodes_id.forEach(node_id => {
+      this.stats_for[node_id].susceptible.push(new_state[node_id].susceptible * this.population_of[node_id]);
+      this.stats_for[node_id].infected.push(new_state[node_id].infected * this.population_of[node_id]);
+      this.stats_for[node_id].recovered.push(new_state[node_id].recovered * this.population_of[node_id]);
+    });
+
     this.state_of = new_state;
   }
   discretization(x: number) {
     return Math.round(100.0 * x) / 100.0;
   }
-  getNow(): state {
-    const dataWithKeys = Object.entries(this.state_of).map(([name, state]) => [parseInt(name), state] as [number, state]);
+  getNow(codeID: number | null): state {
+    if (codeID == null) {
+      const dataWithKeys = Object.entries(this.state_of).map(([name, state]) => [parseInt(name), state] as [number, state]);
+      return {
+        susceptible: getSum(dataWithKeys.map(([name, state]) => state.susceptible * this.population_of[name])),
+        infected: getSum(dataWithKeys.map(([name, state]) => state.infected * this.population_of[name])),
+        recovered: getSum(dataWithKeys.map(([name, state]) => state.recovered * this.population_of[name])),
+      };
+    }
+
     return {
-      susceptible: getSum(dataWithKeys.map(([name, state]) => state.susceptible * this.population_of[name])),
-      infected: getSum(dataWithKeys.map(([name, state]) => state.infected * this.population_of[name])),
-      recovered: getSum(dataWithKeys.map(([name, state]) => state.recovered * this.population_of[name])),
+      susceptible: this.state_of[codeID].susceptible * this.population_of[codeID],
+      infected: this.state_of[codeID].infected * this.population_of[codeID],
+      recovered: this.state_of[codeID].recovered * this.population_of[codeID],
     };
   }
 }

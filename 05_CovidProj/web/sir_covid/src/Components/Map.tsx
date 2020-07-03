@@ -16,11 +16,11 @@ const options = {
   colorAxis: { minValue: 0, maxValue, colors: ["white", "red"] },
 };
 
-const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, each, time }) => {
+type props = { model: model; stateID: number | null, setStateID: (x: number) => void }
+const Map: React.FC<props> = ({ model, stateID, setStateID }) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const [data, updateData] = useState<any>(null);
   const [chartGoogle, updatechartGoogle] = useState<any>(null);
-  const [code, setCode] = useState<number | null>(null);
 
   useEffect(() => {
     GoogleCharts.load(() => {
@@ -38,14 +38,14 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
         const point = chart.getSelection();
         if (point.length === 0) return;
         const code = point[0].row;
-        setCode(code);
+        setStateID(code);
       });
 
       chart.draw(googleData, options);
       updateData(googleData);
       updatechartGoogle(chart);
     });
-  }, [model.state_of, model.population_of]);
+  }, []);
 
   if (chartGoogle && data) {
     for (let i = 0; i < 32; i++) {
@@ -56,23 +56,23 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
 
   return (
     <>
-      {code && (
+      {stateID && (
         <div>
-          <h3>{colData[code][0]}</h3>
+          <h3>{colData[stateID][0]}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
             <span>susceptible:</span>
-            <span>{model.state_of[code].susceptible * model.population_of[code]}</span>
-            <span>({model.state_of[code].susceptible})</span>
+            <span>{model.state_of[stateID].susceptible * model.population_of[stateID]}</span>
+            <span>({model.state_of[stateID].susceptible})</span>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
             <span>infected:</span>
-            <span>{model.state_of[code].infected * model.population_of[code]}</span>
-            <span>({model.state_of[code].infected})</span>
+            <span>{model.state_of[stateID].infected * model.population_of[stateID]}</span>
+            <span>({model.state_of[stateID].infected})</span>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
             <span>recovered:</span>
-            <span>{model.state_of[code].recovered * model.population_of[code]}</span>
-            <span>({model.state_of[code].recovered})</span>
+            <span>{model.state_of[stateID].recovered * model.population_of[stateID]}</span>
+            <span>({model.state_of[stateID].recovered})</span>
           </div>
         </div>
       )}
