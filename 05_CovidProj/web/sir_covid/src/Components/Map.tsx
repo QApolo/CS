@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import model, { state } from "../model";
+import model from "../model";
 import data from "../data";
 
 // @ts-ignore
@@ -47,7 +47,7 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
       updateData(googleData);
       updatechartGoogle(chart);
     });
-  }, []);
+  }, [model.state_of, model.population_of]);
 
   if (chartGoogle && data) {
     for (let i = 0; i < 32; i++) {
