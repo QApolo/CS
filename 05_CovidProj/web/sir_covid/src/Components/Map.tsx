@@ -39,8 +39,6 @@ const Map: React.FC<{ model: model; each: number; time: number }> = ({ model, ea
         if (point.length === 0) return;
         const code = point[0].row;
         setCode(code);
-        console.log(model.state_of[code]);
-        console.log(model.population_of[code]);
       });
 
       chart.draw(googleData, options);

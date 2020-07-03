@@ -21,7 +21,7 @@ const MainScreen = () => {
 
   const [model, setModel] = useState(() => createModel(0.1, 0.3, 0.4));
   const [time, setTime] = useState(0);
-  const each = 400;
+  const each = 500;
 
   useEffect(() => {
     if (isPaused) return;
@@ -32,11 +32,12 @@ const MainScreen = () => {
     return () => clearInterval(id);
   }, [isPaused, model]);
 
+  const paused = <img alt="pause" src={pause} onClick={togglePause} style={{ maxWidth: "3rem", opacity: isPaused ? 0.7 : 1 }} />;
   return (
     <>
       <header className={headerStyle.header}>
         <h2>SIR: COVID-19 [t={time}]</h2>
-        <img alt="pause" src={pause} onClick={togglePause} style={{ opacity: isPaused ? 0.7 : 1 }} />
+        {paused}
         <img alt="edit" src={edit} onClick={toggleEdit} style={{ opacity: isEditing ? 1 : 0.7 }} />
         <img alt="report" src={report} onClick={toggleMeasure} style={{ opacity: measuring ? 1 : 0.7 }} />
       </header>
@@ -56,11 +57,11 @@ const MainScreen = () => {
             const b = parseFloat(transmission.current!.value);
             const c = parseFloat(nu.current!.value);
 
-            console.log({a, b, c})
+            console.log({ a, b, c });
 
             setModel(createModel(a, b, c));
-            setTime(0)
-            togglePause()
+            setTime(0);
+            togglePause();
           }}
         >
           Go!
@@ -72,7 +73,9 @@ const MainScreen = () => {
       </section>
 
       <section id="measuring" style={{ display: measuring ? "block" : "none" }}>
-        <Graph each={each} running={!isPaused} time={time} className={mainStyle.graph} measuring={measuring} model={model} />
+        <Graph each={each} running={!isPaused} time={time} className={mainStyle.graph} measuring={measuring} model={model}>
+          {paused}
+        </Graph>
       </section>
     </>
   );

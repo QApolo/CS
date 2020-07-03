@@ -14,6 +14,7 @@ class model {
   state_of: { [key: number]: state } = {};
   population_of: { [key: number]: number } = {};
   neighbors: Array<Array<[number, number]>>;
+  infected_yesterday = 0;
 
   constructor(
     recovery_rate: number,
@@ -60,9 +61,9 @@ class model {
 
     return this.discretization(
       (1.0 - this.recovery_rate) * infected +
-      this.transmission_rate * (1.0 - this.n_u) * susceptible * infected +
-      this.transmission_rate * (1.0 - this.n_u) * susceptible * s1 +
-      this.transmission_rate * susceptible * s2
+        this.transmission_rate * (1.0 - this.n_u) * susceptible * infected +
+        this.transmission_rate * (1.0 - this.n_u) * susceptible * s1 +
+        this.transmission_rate * susceptible * s2
     );
   }
 
@@ -78,9 +79,9 @@ class model {
 
     return this.discretization(
       susceptible -
-      this.transmission_rate * (1.0 - this.n_u) * susceptible * infected -
-      this.transmission_rate * (1.0 - this.n_u) * susceptible * s1 -
-      this.transmission_rate * susceptible * s2
+        this.transmission_rate * (1.0 - this.n_u) * susceptible * infected -
+        this.transmission_rate * (1.0 - this.n_u) * susceptible * s1 -
+        this.transmission_rate * susceptible * s2
     );
   }
 
@@ -90,6 +91,9 @@ class model {
   }
 
   step() {
+    const dataWithKeys = Object.entries(this.state_of).map(([name, state]) => [parseInt(name), state] as [number, state]);
+    this.infected_yesterday = getSum(dataWithKeys.map(([name, state]) => state.infected * this.population_of[name]));
+    
     const new_state: { [key: number]: state } = {};
     this.nodes_id.forEach(node => {
       new_state[node] = {
