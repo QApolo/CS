@@ -37,7 +37,7 @@ const MainScreen = () => {
   return (
     <>
       <header className={headerStyle.header}>
-        <h2>SIR: COVID-19 [t={time}]</h2>
+        <h2>SIR: SARS-CoV-2 [t={time}]</h2>
         {paused}
         <img alt="edit" src={edit} onClick={toggleEdit} style={{ opacity: isEditing ? 1 : 0.7 }} />
         <img alt="report" src={report} onClick={toggleMeasure} style={{ opacity: measuring ? 1 : 0.7 }} />
