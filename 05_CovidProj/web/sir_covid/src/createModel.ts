@@ -1,7 +1,7 @@
 import model, { state } from "./model";
-import data, { stateCode } from "./data";
+import { stateCode, dataFromJson } from "./data";
 
-const createModel = (recovery_rate: number, transmission_rate: number, n_u: number) => {
+const createModel = (data: dataFromJson, recovery_rate: number, transmission_rate: number, n_u: number) => {
   const codes = Object.keys(data.data);
   const codeOf = (code: stateCode) => codes.indexOf(code);
 

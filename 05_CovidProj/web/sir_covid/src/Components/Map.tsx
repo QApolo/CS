@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import model from "../model";
-import data from "../data";
+import { DataContext } from "../Components/App/";
 
 // @ts-ignore
 import { GoogleCharts } from "google-charts";
 
-const colData = Object.values(data.data).map(({ longname }) => [longname, 0] as [string, number]);
 const maxValue = 5000000;
 
 const options = {
@@ -18,6 +17,9 @@ const options = {
 
 type props = { model: model; stateID: number | null; setStateID: (x: number) => void };
 const Map: React.FC<props> = ({ model, stateID, setStateID }) => {
+  const raw_data = useContext(DataContext);
+  const colData = Object.values(raw_data!.data).map(({ longname }) => [longname, 0] as [string, number]);
+
   const chartRef = useRef<HTMLDivElement>(null);
   const [data, updateData] = useState<any>(null);
   const [chartGoogle, updatechartGoogle] = useState<any>(null);

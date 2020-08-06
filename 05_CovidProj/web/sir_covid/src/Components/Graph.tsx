@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import model from "../model";
-import data from "../data";
+import { DataContext } from "../Components/App/";
 
 // @ts-ignore
 import Plotly from "plotly.js-basic-dist";
-
-const colData = Object.values(data.data).map(({ longname }) => [longname, 0] as [string, number]);
 
 const infected = { y: [] as Array<number>, mode: "histogram", name: "infected", line: { color: "#10375c", width: 2 } };
 const recovered = { y: [] as Array<number>, mode: "histogram", name: "recovered", line: { color: "#ff9234", width: 2 } };
@@ -21,6 +19,9 @@ const commulated = { y: [], mode: "histogram", name: "infected", line: { color: 
 
 type props = { measuring: boolean; model: model; className: string; running: boolean; time: number; stateID: number | null };
 const Graph: React.FC<props> = ({ measuring, model, className, running, children, stateID, time }) => {
+  const data = useContext(DataContext);
+  const colData = Object.values(data!.data).map(({ longname }) => [longname, 0] as [string, number]);
+
   const graphRef = useRef<HTMLDivElement>(null);
   const cumulativeRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +40,6 @@ const Graph: React.FC<props> = ({ measuring, model, className, running, children
 
   useEffect(() => {
     if (time === 0) return;
-    console.log({time, model, stateID})
     {
       const point = model.getNow(stateID);
       const y = [[point.infected], [point.recovered], [point.susceptible]];
