@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import model from "../model";
-import data from "../data";
+import { DataContext } from "../Components/App/";
 
 // @ts-ignore
 import { GoogleCharts } from "google-charts";
 
-const colData = Object.values(data.data).map(({ longname }) => [longname, 0] as [string, number]);
 const maxValue = 5000000;
 
 const options = {
@@ -16,36 +15,46 @@ const options = {
   colorAxis: { minValue: 0, maxValue, colors: ["white", "red"] },
 };
 
-type props = { model: model; stateID: number | null, setStateID: (x: number) => void }
+type props = { model: model; stateID: number | null; setStateID: (x: number) => void };
 const Map: React.FC<props> = ({ model, stateID, setStateID }) => {
+  const raw_data = useContext(DataContext);
+  const colData = Object.values(raw_data!.data).map(({ longname }) => [longname, 0] as [string, number]);
+
   const chartRef = useRef<HTMLDivElement>(null);
   const [data, updateData] = useState<any>(null);
   const [chartGoogle, updatechartGoogle] = useState<any>(null);
 
   useEffect(() => {
-    GoogleCharts.load(() => {
-      const visualization = GoogleCharts.api.visualization;
+    GoogleCharts.load(
+      () => {
+        const visualization = GoogleCharts.api.visualization;
+        console.log(visualization);
 
-      const googleData = new google.visualization.DataTable();
-      googleData.addColumn("string", "Estado");
-      googleData.addColumn("number", "Casos");
-      googleData.addRows(colData);
+        const googleData = new google.visualization.DataTable();
+        googleData.addColumn("string", "Estado");
+        googleData.addColumn("number", "Casos");
+        googleData.addRows(colData);
 
-      if (!chartRef.current) return;
-      const chart = new visualization.GeoChart(chartRef.current);
+        if (!chartRef.current) return;
+        const chart = new visualization.GeoChart(chartRef.current);
 
-      visualization.events.addListener(chart, "select", () => {
-        const point = chart.getSelection();
-        if (point.length === 0) return;
-        const code = point[0].row;
-        setStateID(code);
-      });
+        visualization.events.addListener(chart, "select", () => {
+          const point = chart.getSelection();
+          if (point.length === 0) return;
+          const code = point[0].row;
+          setStateID(code);
+        });
 
-      chart.draw(googleData, options);
-      updateData(googleData);
-      updatechartGoogle(chart);
-    });
-  }, []);
+        chart.draw(googleData, options);
+        updateData(googleData);
+        updatechartGoogle(chart);
+      },
+      {
+        packages: ["geochart"],
+        mapsApiKey: "AIzaSyACkF-nTRMU5wD3P3-vRv-CkG7T6TbAq8Q",
+      }
+    );
+  }, [setStateID]);
 
   if (chartGoogle && data) {
     for (let i = 0; i < 32; i++) {

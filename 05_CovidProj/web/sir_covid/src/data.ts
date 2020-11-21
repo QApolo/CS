@@ -1,8 +1,5 @@
 import jsonData from "./data.json";
 
-type point = { population: number; susceptible: number; infected: number; recovered: number; longname: string };
-type dataFromJson = { edges: Array<[stateCode, stateCode, number]>; data: { [key in stateCode]: point } };
-
 export type stateCode =
   | "AG"
   | "BC"
@@ -37,7 +34,5 @@ export type stateCode =
   | "YU"
   | "ZA";
 
-// @ts-ignore
-const data: dataFromJson = jsonData;
-
-export default data;
+type point = { population: number; susceptible: number; infected: number; recovered: number; longname: string };
+export type dataFromJson = { edges: Array<[stateCode, stateCode, number]>; data: { [key in stateCode]: point } };

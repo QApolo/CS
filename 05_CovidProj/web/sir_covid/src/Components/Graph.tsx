@@ -1,13 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import model from "../model";
-import data from "../data"
-
+import { DataContext } from "../Components/App/";
 
 // @ts-ignore
 import Plotly from "plotly.js-basic-dist";
-
-const colData = Object.values(data.data).map(({ longname }) => [longname, 0] as [string, number]);
-
 
 const infected = { y: [] as Array<number>, mode: "histogram", name: "infected", line: { color: "#10375c", width: 2 } };
 const recovered = { y: [] as Array<number>, mode: "histogram", name: "recovered", line: { color: "#ff9234", width: 2 } };
@@ -21,14 +17,15 @@ const layout = (title: string) => ({
 
 const commulated = { y: [], mode: "histogram", name: "infected", line: { color: "#10375c", width: 2 } };
 
-type props = { each: number; measuring: boolean; model: model; className: string; running: boolean; time: number; stateID: number | null };
-const Graph: React.FC<props> = ({ measuring, each, model, className, running, children, stateID }) => {
+type props = { measuring: boolean; model: model; className: string; running: boolean; time: number; stateID: number | null };
+const Graph: React.FC<props> = ({ measuring, model, className, running, children, stateID, time }) => {
+  const data = useContext(DataContext);
+  const colData = Object.values(data!.data).map(({ longname }) => [longname, 0] as [string, number]);
+
   const graphRef = useRef<HTMLDivElement>(null);
   const cumulativeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!measuring) return;
-
     if (infected.y.length !== 0) Plotly.deleteTraces(graphRef.current, [0, 1, 2]);
 
     const codeID = stateID ?? 32;
@@ -37,30 +34,25 @@ const Graph: React.FC<props> = ({ measuring, each, model, className, running, ch
     recovered.y = model.stats_for[codeID].recovered;
     susceptible.y = model.stats_for[codeID].susceptible;
     commulated.y = [];
-    Plotly.newPlot(graphRef.current, [infected, recovered, susceptible], layout(codeID === 32? "Mexico" : colData[codeID][0]));
+    Plotly.newPlot(graphRef.current, [infected, recovered, susceptible], layout(codeID === 32 ? "Mexico" : colData[codeID][0]));
     cumulativeRef.current && Plotly.newPlot(cumulativeRef.current, [commulated], layout("Acumulados"));
-  }, [model, measuring, stateID]);
+  }, [model, stateID]);
 
   useEffect(() => {
-    if (!measuring || !running) return;
-    const id1 = setInterval(() => {
+    if (time === 0) return;
+    {
       const point = model.getNow(stateID);
       const y = [[point.infected], [point.recovered], [point.susceptible]];
       Plotly.extendTraces(graphRef.current, { y }, [0, 1, 2]);
-    }, each);
+    }
 
-    const id2 = setInterval(() => {
+    {
       const newCases = Math.abs(model.getNow(stateID).infected - model.infected_yesterday);
       const cummulatedUntilNow = commulated.y[commulated.y.length - 1] ?? 0;
       const point = newCases + cummulatedUntilNow;
       cumulativeRef.current && Plotly.extendTraces(cumulativeRef.current, { y: [[point]] }, [0]);
-    }, each);
-
-    return () => {
-      clearInterval(id1);
-      clearInterval(id2);
-    };
-  }, [measuring, model, each, running, stateID]);
+    }
+  }, [model, time, stateID]);
 
   return (
     <>
