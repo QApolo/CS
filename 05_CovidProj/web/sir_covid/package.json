@@ -10,7 +10,7 @@
     "google-charts": "^2.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "typescript": "~3.7.2",
     "plotly.js-basic-dist": "^1.53.0"
   },
